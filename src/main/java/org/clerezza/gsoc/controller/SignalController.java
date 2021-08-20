@@ -2,6 +2,7 @@ package org.clerezza.gsoc.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
+import org.apache.clerezza.signal.file.FileOperations;
 import org.apache.clerezza.signal.graph.SignalGraph;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -24,6 +25,11 @@ public class SignalController {
         ObjectNode json = new ObjectMapper().readValue( data, ObjectNode.class );
         createFileIfNotExist( filename );
         SignalGraph.buildGraph( json, filename );
+    }
+
+    @GetMapping
+    public String printGraph() {
+        return FileOperations.printGraph( filename );
     }
 
     /**
